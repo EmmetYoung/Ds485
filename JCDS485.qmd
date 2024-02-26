@@ -1,0 +1,30 @@
+---
+title: "DS485"
+author: "Emmet"
+format: pdf
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(janitor)
+```
+
+```{r}
+soccer <- read_csv("KPIs.csv") %>% clean_names()
+```
+
+```{r}
+soccer <- soccer %>% mutate(formation = as.factor(formation))
+```
+
+```{r}
+soccer <- soccer %>%
+drop_na()
+```
+
+```{r}
+
+```
