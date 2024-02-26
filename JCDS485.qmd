@@ -148,3 +148,7 @@ ggplot(soccer, aes(x = wide_attacks_percentage, y = attacking_clear_cuts)) +
 ```{r}
 cor(soccer$wide_attacks_percentage, soccer$attacking_clear_cuts)
 ```
+
+```{r}
+
+```
