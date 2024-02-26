@@ -150,5 +150,64 @@ cor(soccer$wide_attacks_percentage, soccer$attacking_clear_cuts)
 ```
 
 ```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = opponent_clear_cuts, y = formation)) +
+  scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
+  xlab("Chances Given Up") +
+  ylab("Formation") + 
+  theme_bw()
+```
 
+```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = attacking_clear_cuts, y = formation)) +
+  scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
+  xlab("Chances Created") +
+  ylab("Formation") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = jc_goals, y = formation)) +
+  scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
+  xlab("Goals Scored") +
+  ylab("Formation") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = opponent_goals, y = formation)) +
+  scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
+  xlab("Goals Scored") +
+  ylab("Formation") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = wide_attacks_total, y = formation)) +
+  scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
+  xlab("Total Wide Attacks") +
+  ylab("Formation") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = defensive_wide_attacks_percentage, y = formation)) +
+  scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
+  xlab("Defensive Wide Attack Success Rate") +
+  ylab("Formation") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = first_ball_percentage, y = formation)) +
+  scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
+  xlab("First Balls Won Percentage") +
+  ylab("Formation") + 
+  theme_bw()
 ```
