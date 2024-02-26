@@ -1,5 +1,5 @@
 ---
-title: "DS485"
+title: "Ds485"
 author: "Emmet"
 format: pdf
 editor: visual
@@ -26,5 +26,13 @@ drop_na()
 ```
 
 ```{r}
+head(soccer)
+```
 
+```{r}
+ggplot(soccer, aes(x = attacking_clear_cuts , y = jc_goals)) + 
+  geom_point() +
+    xlab("Chances") +
+  ylab("JC Goals") + 
+  theme_bw()
 ```
