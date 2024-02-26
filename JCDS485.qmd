@@ -40,3 +40,111 @@ ggplot(soccer, aes(x = attacking_clear_cuts , y = jc_goals)) +
 ```{r}
 cor(soccer$attacking_clear_cuts, soccer$jc_goals)
 ```
+
+```{r}
+ggplot(soccer, aes(x = opponent_clear_cuts , y = opponent_goals)) + 
+  geom_point() +
+    xlab("Chances") +
+  ylab("Opponent Goals") + 
+  theme_bw()
+```
+
+```{r}
+cor(soccer$opponent_clear_cuts, soccer$opponent_goals)
+```
+
+```{r}
+ggplot(soccer, aes(x = opponent_clear_cuts , y = opponent_goals, size = massey_ranking)) + 
+  geom_point() +
+    xlab("Chances") +
+  ylab("Opponent Goals") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(soccer, aes(x = opponent_clear_cuts , y = opponent_goals, shape = formation)) + 
+  geom_point() +
+    xlab("Chances") +
+  ylab("Opponent Goals") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(soccer, aes(x = attacking_clear_cuts , y = jc_goals, shape = formation)) + 
+  geom_point() +
+    xlab("Chances") +
+  ylab("JC Goals") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(soccer, aes(x = first_ball_percentage, y = second_ball_percentage)) + 
+  geom_point() +
+    xlab("First Ball Won Percentage") +
+  ylab("Second Ball Won Percentage") + 
+  theme_bw()
+```
+
+```{r}
+cor(soccer$first_ball_percentage, soccer$second_ball_percentage)
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_histogram(mapping = aes(x = jc_goals)) + 
+  theme_bw() 
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_histogram(mapping = aes(x = opponent_goals)) + 
+  theme_bw() 
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_histogram(mapping = aes(x = opponent_goals, fill = formation)) + 
+  theme_bw() 
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_histogram(mapping = aes(x = jc_goals, fill = formation)) + 
+  theme_bw() 
+```
+
+```{r}
+ggplot(soccer, aes(x = wide_attacks_total, y = attacking_clear_cuts)) + 
+  geom_point() +
+    xlab("Wide Attacks") +
+  ylab("CLear Cuts") + 
+  theme_bw()
+```
+
+```{r}
+cor(soccer$wide_attacks_total, soccer$attacking_clear_cuts)
+```
+
+```{r}
+ggplot(soccer, aes(x = wide_attacks_won, y = attacking_clear_cuts)) + 
+  geom_point() +
+    xlab("Wide Attacks") +
+  ylab("CLear Cuts") + 
+  theme_bw()
+```
+
+```{r}
+cor(soccer$wide_attacks_won, soccer$attacking_clear_cuts)
+```
+
+```{r}
+ggplot(soccer, aes(x = wide_attacks_percentage, y = attacking_clear_cuts)) + 
+  geom_point() +
+    xlab("Wide Attacks") +
+  ylab("Clear Cuts") + 
+  theme_bw()
+```
+
+```{r}
+cor(soccer$wide_attacks_percentage, soccer$attacking_clear_cuts)
+```
