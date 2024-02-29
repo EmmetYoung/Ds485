@@ -213,5 +213,52 @@ ggplot(data = soccer) +
 ```
 
 ```{r}
+view(soccer)
+```
 
+```{r}
+ggplot(soccer, aes(x = massey_ranking, y = first_ball_percentage, size = second_ball_percentage)) + 
+  geom_point() +
+    xlab("Massey Ranking") +
+  ylab("First Ball Percentage") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(soccer, aes(x = massey_ranking, y = defensive_wide_attacks_total, size = defensive_wide_attacks_percentage)) + 
+  geom_point() +
+    xlab("Massey Ranking") +
+  ylab("Defensive Wide Attacks Total") + 
+  theme_bw()
+```
+
+```{r}
+soccer$result <- ifelse(soccer$jc_goals > soccer$opponent_goals, "W",
+               ifelse(soccer$jc_goals < soccer$opponent_goals, "L", "T"))
+
+view(soccer)
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = attacking_clear_cuts, y = result)) +
+  xlab("First Balls Won Percentage") +
+  ylab("Result") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = opponent_clear_cuts, y = result)) +
+  xlab("Opponent Clear Cuts") +
+  ylab("Result") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(data = soccer) + 
+  geom_boxplot(mapping = aes(x = massey_ranking, y = result)) +
+  xlab("Massey Ranking") +
+  ylab("Result") + 
+  theme_bw()
 ```
