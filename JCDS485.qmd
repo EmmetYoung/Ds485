@@ -10,6 +10,8 @@ library(tidyverse)
 library(ggplot2)
 library(dplyr)
 library(janitor)
+install.packages("reshape2")
+library(reshape2)
 ```
 
 ```{r}
@@ -264,5 +266,8 @@ ggplot(data = soccer) +
 ```
 
 ```{r}
-ggplot(soccer, aes(x =result, y = count, fill = formation ))
+ggplot(data = soccer) + 
+  geom_bar(mapping = aes(x = result, fill = formation)) + 
+  theme_bw() +
+  scale_fill_discrete(labels=c("4-2-3-1", "3-5-2")) 
 ```
