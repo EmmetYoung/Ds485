@@ -318,10 +318,28 @@ ggplot(soccer, aes(x = defensive_wide_attacks_percentage, y = defensive_wide_att
 ```
 
 ```{r}
+soccer <- mutate(soccer, corner_kicks_percentage = ifelse(corner_kicks_percentage == "#DIV/0!", NA, corner_kicks_percentage))
+```
 
+```{r}
+soccer <- soccer%>% 
+  mutate(corner_kicks_percentage = as.numeric(corner_kicks_percentage))
+```
 
+```{r}
 # only using the athletes (heat map)
-#dfavg <- dfathlete %>%   select(c(25,37,123,129:138)) #all the numeric variables 
-#selectedcorr_mat <- round(cor(dfavg),2)  #
-#head(corr_mat)melted_corr_mat <- melt(corr_mat)ggplot(data = melted_corr_mat,        aes(x=X1, y=X2, fill=value)) +   geom_tile() +  scale_fill_distiller(palette="RdBu",direction=1,limits=c(-1,1))+  geom_text(aes(X2, X1, label = value),           color = "black", size = 4)+  scale_y_discrete(label= c(nfcs_avg = "NFCS Average", rse_avg = "RSE Average",scsr_avg="SCSR Average",                 smirr_avg = "SMIRR Average", smirn_avg = "SMIRN Average",smirx_avg="SMIRX Average", smirc_avg = "SMIRC Average", smirb_avg = "SMIRB Average",smir_avg="SMIR Average",nmrq_avg="NMRQ Average",pss_avg="PSS Average",mil_avg="MiL Average",aims_avg="AIMS Average"))+  scale_x_discrete(label= c(nfcs_avg = "NFCS Average", rse_avg = "RSE Average",scsr_avg="SCSR Average",                 smirr_avg = "SMIRR Average", smirn_avg = "SMIRN Average",smirx_avg="SMIRX Average", smirc_avg = "SMIRC Average", smirb_avg = "SMIRB Average",smir_avg="SMIR Average",nmrq_avg="NMRQ Average",pss_avg="PSS Average",mil_avg="MiL Average",aims_avg="AIMS Average"))+  labs(x=NULL,y=NULL,fill=stringr::str_wrap("Correlation Coefficient",width=12))+  theme_bw() +  theme( axis.text.x  = element_text(angle=90))
+soccer_map <- soccer %>%   select(c(2:36)) #all the numeric variables 
+
+selectedcorr_mat <- round(cor(soccer_map),2)  
+
+melted_corr_mat <- melt(selectedcorr_mat)
+
+melted_corr_mat
+
+```
+
+```{r}
+
+ggplot(data = melted_corr_mat,  aes(x=Var1, y=Var2, fill=value)) +   geom_tile() +  scale_fill_distiller(palette="RdBu",direction=1,limits=c(-1,1))+  geom_text(aes(Var2, Var1, label = value),           color = "black", size = 4)
+#+  scale_y_discrete(label= c(nfcs_avg = "NFCS Average", rse_avg = "RSE Average",scsr_avg="SCSR Average",                 smirr_avg = "SMIRR Average", smirn_avg = "SMIRN Average",smirx_avg="SMIRX Average", smirc_avg = "SMIRC Average", smirb_avg = "SMIRB Average",smir_avg="SMIR Average",nmrq_avg="NMRQ Average",pss_avg="PSS Average",mil_avg="MiL Average",aims_avg="AIMS Average"))+  scale_x_discrete(label= c(nfcs_avg = "NFCS Average", rse_avg = "RSE Average",scsr_avg="SCSR Average",                 smirr_avg = "SMIRR Average", smirn_avg = "SMIRN Average",smirx_avg="SMIRX Average", smirc_avg = "SMIRC Average", smirb_avg = "SMIRB Average",smir_avg="SMIR Average",nmrq_avg="NMRQ Average",pss_avg="PSS Average",mil_avg="MiL Average",aims_avg="AIMS Average"))+  labs(x=NULL,y=NULL,fill=stringr::str_wrap("Correlation Coefficient",width=12))+  theme_bw() +  theme( axis.text.x  = element_text(angle=90))
 ```
