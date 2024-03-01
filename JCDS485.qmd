@@ -262,3 +262,7 @@ ggplot(data = soccer) +
   ylab("Result") + 
   theme_bw()
 ```
+
+```{r}
+ggplot(soccer, aes(x =result, y = count, fill = formation ))
+```
