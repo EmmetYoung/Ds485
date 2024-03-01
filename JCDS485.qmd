@@ -271,3 +271,35 @@ ggplot(data = soccer) +
   theme_bw() +
   scale_fill_discrete(labels=c("4-2-3-1", "3-5-2")) 
 ```
+
+```{r}
+ggplot(soccer, aes(x = opponent_clear_cuts , y = opponent_goals, color = result)) + 
+  geom_point() +
+    xlab("Chances") +
+  ylab("Opponent Goals") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(soccer, aes(x = attacking_clear_cuts , y = jc_goals, color = result)) + 
+  geom_point() +
+    xlab("JC Chances") +
+  ylab("JC Goals") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(soccer, aes(x = wide_attacks_total , y = wide_attacks_won, color = result)) + 
+  geom_point() +
+    xlab("Wide Attacks") +
+  ylab("Wide Attacks Won") + 
+  theme_bw()
+```
+
+```{r}
+ggplot(soccer, aes(x = defensive_wide_attacks_percentage, y = defensive_wide_attacks_total, color = result)) + 
+  geom_point() +
+    xlab("Defensive Wide Attacks Percentage") +
+  ylab("Defensive Wide Attacks Total") + 
+  theme_bw()
+```
