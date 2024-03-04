@@ -340,7 +340,7 @@ melted_corr_mat
 
 ```{r}
 
-ggplot(data = melted_corr_mat,  aes(x=Var1, y=Var2, fill=value)) +   geom_tile() +  scale_fill_distiller(palette="RdBu",direction=1,limits=c(-1,1))+ 
+ggplot(data = melted_corr_mat,  aes(x=Var1, y=Var2, fill=value)) +   geom_tile() +  scale_fill_distiller(palette="RdBu",direction=-1,limits=c(-1,1))+ 
 geom_text(aes(Var2, Var1, label = value), color = "black", size = 1)+
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 5)) +
 theme(axis.text.y = element_text(angle = 0, hjust = 1, size = 5))
