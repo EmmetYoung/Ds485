@@ -384,3 +384,28 @@ autoplot(jc_goals_model)[1:2]
 ```{r}
 autoplot(jc_goals_model_2)[1:2]
 ```
+
+```{r}
+#using no opponent statistics besides massey
+jc_goals_model3 <- lm(jc_goals ~ wide_attacks_total +  free_kicks_successful + box_touches + attacking_clear_cuts +  won_off_backline + jc_shots + opponent_shots  + massey_ranking + second_ball_won + backline_to_frontline , data = soccer)
+
+summary(jc_goals_model3)
+```
+
+```{r}
+soccer_best2 <- ols_step_best_subset(jc_goals_model3)
+soccer_best2
+```
+
+```{r}
+plot(soccer_best2)
+#looks like 7
+```
+
+```{r}
+jc_goals_model4 <- lm(jc_goals ~ wide_attacks_total+ attacking_clear_cuts + won_off_backline + jc_shots + massey_ranking + second_ball_won + backline_to_frontline, data = soccer)
+
+summary(jc_goals_model4)
+
+ 
+```
