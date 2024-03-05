@@ -349,3 +349,8 @@ geom_text(aes(Var2, Var1, label = value), color = "black", size = 1)+
   theme(axis.text = element_text(size = 5),  # Set the size for both x and y axes
         axis.text.x = element_text(angle = 90))
 ```
+
+```{r}
+wq_forward <- ols_step_forward_p(wq_model)
+wq_forward
+```
