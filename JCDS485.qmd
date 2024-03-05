@@ -25,6 +25,7 @@ library(factoextra)
 library(rsample)
 library(caret)
 library(rattle)
+library(ggfortify)
 ```
 
 ```{r}
@@ -351,6 +352,35 @@ geom_text(aes(Var2, Var1, label = value), color = "black", size = 1)+
 ```
 
 ```{r}
-wq_forward <- ols_step_forward_p(wq_model)
-wq_forward
+#multiple linear regression for Juniata Goals
+jc_goals_model <- lm(jc_goals ~ wide_attacks_total + defensive_wide_attacks_total +  free_kicks_successful + box_touches + attacking_clear_cuts + opponent_clear_cuts +  won_off_backline + jc_shots + opponent_shots + opponent_goals + massey_ranking, data = soccer)
+
+summary(jc_goals_model)
+```
+
+```{r}
+soccer_best <- ols_step_best_subset(jc_goals_model)
+soccer_best
+```
+
+```{r}
+plot(soccer_best)
+#5 looks best
+```
+
+```{r}
+
+jc_goals_model_2 <- lm(jc_goals ~ defensive_wide_attacks_total + attacking_clear_cuts + opponent_clear_cuts + won_off_backline + opponent_goals, data = soccer  )
+summary(jc_goals_model_2)
+
+#interesting groups of variables to look at with a significant p-value
+```
+
+```{r}
+autoplot(jc_goals_model)[1:2]
+#not the best but might be good enough
+```
+
+```{r}
+autoplot(jc_goals_model_2)[1:2]
 ```
