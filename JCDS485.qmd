@@ -26,6 +26,7 @@ library(rsample)
 library(caret)
 library(rattle)
 library(ggfortify)
+library(glmnet)
 ```
 
 ```{r}
@@ -408,4 +409,56 @@ jc_goals_model4 <- lm(jc_goals ~ wide_attacks_total+ attacking_clear_cuts + won_
 summary(jc_goals_model4)
 
  
+```
+
+```{r}
+#ridge regression for predicting formation
+
+X <- soccer %>%
+select(-formation, -opponent) %>%
+data.matrix() %>%
+scale()
+
+y <- soccer %>%
+select(formation) %>%
+data.matrix()
+```
+
+```{r}
+n_lambdas <- 100
+lambdas2 <- 10^seq(-4, 1, length.out = n_lambdas)
+lambdas2
+```
+
+```{r}
+lasso_mod <- glmnet(X, y, alpha = 1, lambda = lambdas2)
+
+lasso_mod
+```
+
+```{r}
+beta_lasso_mat <- lasso_mod$beta %>% as.matrix()
+
+lasso_coef_df <- beta_lasso_mat %>%
+t() %>%
+as_tibble() %>%
+mutate(lambda = lasso_mod$lambda) %>%
+pivot_longer(-lambda, names_to = "predictor", values_to = "value")
+```
+
+```{r}
+set.seed(1)
+
+cv_lasso_mod <- cv.glmnet(X, y, alpha = 1, lambda = lambdas2, nfolds = 10)
+
+(best_lambda_2 <- cv_lasso_mod$lambda.min)
+```
+
+```{r}
+#Not ideal, but most of the variables I looked at were very similar, so i guess it makes sense.
+coef(lasso_mod, s = best_lambda_2)
+```
+
+```{r}
+
 ```
