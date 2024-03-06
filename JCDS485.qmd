@@ -412,14 +412,25 @@ summary(jc_goals_model4)
 ```
 
 ```{r}
-#ridge regression for predicting formation
+#removes tie and makes binary
+soccer_logistic <- soccer %>% filter(result == "W"| result == "L")
+soccer_logistic
+```
 
-X <- soccer %>%
-select(-formation, -opponent) %>%
+```{r}
+soccer_logistic$result <- ifelse(soccer_logistic$result == "W", 1, 0)
+view(soccer_logistic)
+```
+
+```{r}
+#lasso regression for predicting formation
+
+X <- soccer_logistic %>%
+select(-formation, -opponent, - result, -corner_kicks_percentage) %>%
 data.matrix() %>%
 scale()
 
-y <- soccer %>%
+y <- soccer_logistic %>%
 select(formation) %>%
 data.matrix()
 ```
@@ -460,5 +471,52 @@ coef(lasso_mod, s = best_lambda_2)
 ```
 
 ```{r}
+X1 <- soccer_logistic %>%
+select(-result, -opponent, -formation, -corner_kicks_percentage) %>%
+data.matrix() %>%
+scale()
 
+y1 <- soccer_logistic %>%
+select(result) %>%
+data.matrix()
+```
+
+```{r}
+n_lambdas <- 100
+lambdas3 <- 10^seq(-4, 1, length.out = n_lambdas)
+lambdas3
+```
+
+```{r}
+lasso_mod2 <- glmnet(X1, y1, alpha = 1, lambda = lambdas3)
+
+lasso_mod2
+```
+
+```{r}
+beta_lasso_mat2 <- lasso_mod2$beta %>% as.matrix()
+
+lasso_coef_df2 <- beta_lasso_mat2 %>%
+t() %>%
+as_tibble() %>%
+mutate(lambda = lasso_mod2$lambda) %>%
+pivot_longer(-lambda, names_to = "predictor", values_to = "value")
+```
+
+```{r}
+set.seed(1)
+
+cv_lasso_mod <- cv.glmnet(X, y, alpha = 1, lambda = lambdas2, nfolds = 10)
+
+(best_lambda_2 <- cv_lasso_mod$lambda.min)
+```
+
+```{r}
+coef(lasso_mod, s = best_lambda_2)
+```
+
+```{r}
+soccer_logistic_reg <- glm(result ~ opponent_goals, data = soccer, family = binomial())
+
+summary(soccer_logistic_reg)
 ```
