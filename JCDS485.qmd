@@ -516,7 +516,16 @@ coef(lasso_mod, s = best_lambda_2)
 ```
 
 ```{r}
-soccer_logistic_reg <- glm(result ~ opponent_goals, data = soccer, family = binomial())
+soccer_logistic_reg <- glm(result ~  opponent_goals + opponent_shots + defensive_wide_attacks_total, data = soccer_logistic, family = binomial())
 
 summary(soccer_logistic_reg)
+#few varaibles are even close to significant.
+```
+
+```{r}
+soccer_logistic_reg2 <- glm(formation ~  attacking_clear_cuts + opponent_backline_to_frontline  + won_off_backline + opponent_clear_cuts, data = soccer_logistic, family = binomial())
+
+summary(soccer_logistic_reg2)
+
+
 ```
