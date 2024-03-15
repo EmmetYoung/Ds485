@@ -353,40 +353,6 @@ geom_text(aes(Var2, Var1, label = value), color = "black", size = 1)+
 ```
 
 ```{r}
-#multiple linear regression for Juniata Goals
-jc_goals_model <- lm(jc_goals ~ wide_attacks_total + defensive_wide_attacks_total +  free_kicks_successful + box_touches + attacking_clear_cuts + opponent_clear_cuts +  won_off_backline + jc_shots + opponent_shots + opponent_goals + massey_ranking, data = soccer)
-
-summary(jc_goals_model)
-```
-
-```{r}
-soccer_best <- ols_step_best_subset(jc_goals_model)
-soccer_best
-```
-
-```{r}
-plot(soccer_best)
-#5 looks best
-```
-
-```{r}
-
-jc_goals_model_2 <- lm(jc_goals ~ defensive_wide_attacks_total + attacking_clear_cuts + opponent_clear_cuts + won_off_backline + opponent_goals, data = soccer  )
-summary(jc_goals_model_2)
-
-#interesting groups of variables to look at with a significant p-value
-```
-
-```{r}
-autoplot(jc_goals_model)[1:2]
-#not the best but might be good enough
-```
-
-```{r}
-autoplot(jc_goals_model_2)[1:2]
-```
-
-```{r}
 #using no opponent statistics besides massey
 jc_goals_model3 <- lm(jc_goals ~ wide_attacks_total +  free_kicks_successful + box_touches + attacking_clear_cuts +  won_off_backline + jc_shots + opponent_shots  + massey_ranking + second_ball_won + backline_to_frontline , data = soccer)
 
@@ -409,6 +375,35 @@ jc_goals_model4 <- lm(jc_goals ~ wide_attacks_total+ attacking_clear_cuts + won_
 summary(jc_goals_model4)
 
  
+```
+
+```{r}
+#chances model based on most correlated variables
+jc_chances_model <- lm(attacking_clear_cuts ~ wide_attacks_won + defensive_wide_attacks_total + corner_kicks_total + backline_to_frontline + opponent_clear_cuts + free_kicks_successful + box_touches  +  won_off_backline + jc_shots + opponent_shots + opponent_goals + massey_ranking, data = soccer)
+
+summary(jc_chances_model)
+```
+
+```{r}
+chances_best <- ols_step_best_subset(jc_chances_model)
+chances_best
+```
+
+```{r}
+plot(chances_best)
+```
+
+```{r}
+jc_chances_model2 <- lm(attacking_clear_cuts ~ defensive_wide_attacks_total+ backline_to_frontline + opponent_clear_cuts + free_kicks_successful + won_off_backline + jc_shots + opponent_goals + massey_ranking, data = soccer)
+
+summary(jc_chances_model2)
+```
+
+```{r}
+#without opponent characteristics besides massey ranking
+jc_chances_model3 <- lm(attacking_clear_cuts ~ defensive_wide_attacks_total+ backline_to_frontline  + free_kicks_successful + won_off_backline + jc_shots + massey_ranking, data = soccer)
+
+summary(jc_chances_model3)
 ```
 
 ```{r}
