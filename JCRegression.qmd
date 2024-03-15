@@ -6,9 +6,93 @@ editor: visual
 ---
 
 ```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(janitor)
+install.packages("reshape2")
+library(reshape2)
+library(plotly)
+library(magrittr)
+library(tidyr)
+library(RColorBrewer)
+library(plyr)
+library(stringr)
+library(Hmisc)
+library(qqplotr)
+library(olsrr)
+library(factoextra)
+library(rsample)
+library(caret)
+library(rattle)
+library(ggfortify)
+library(glmnet)
+```
 
+```{r}
+soccer <- read_csv("KPIs.csv") %>% clean_names()
+#importing data and creating clean names
+```
+
+```{r}
+soccer <- soccer %>% mutate(formation = as.factor(formation))
+#making formation a factor
+```
+
+```{r}
+soccer <- soccer %>%
+drop_na()
+#dropping excess rows
+```
+
+```{r}
+soccer$result <- ifelse(soccer$jc_goals > soccer$opponent_goals, "W",
+               ifelse(soccer$jc_goals < soccer$opponent_goals, "L", "T"))
+#Creating result
+```
+
+```{r}
+soccer <- mutate(soccer, corner_kicks_percentage = ifelse(corner_kicks_percentage == "#DIV/0!", NA, corner_kicks_percentage))
+```
+
+```{r}
+soccer <- soccer%>% 
+  mutate(corner_kicks_percentage = as.numeric(corner_kicks_percentage))
+```
+
+```{r}
+#multiple linear regression for Juniata Goals looking at most correlated variables
+jc_goals_model <- lm(jc_goals ~ wide_attacks_total + defensive_wide_attacks_total +  free_kicks_successful + box_touches + attacking_clear_cuts + opponent_clear_cuts +  won_off_backline + jc_shots + opponent_shots + opponent_goals + massey_ranking, data = soccer)
+
+summary(jc_goals_model)
+```
+
+```{r}
+#using best subset regression
+soccer_best <- ols_step_best_subset(jc_goals_model)
+soccer_best
+```
+
+```{r}
+#5 looks optimal
+plot(soccer_best)
 ```
 
 ```{r}
 
+#using best subset
+jc_goals_model_2 <- lm(jc_goals ~ defensive_wide_attacks_total + attacking_clear_cuts + opponent_clear_cuts + won_off_backline + opponent_goals, data = soccer  )
+summary(jc_goals_model_2)
+
+#interesting groups of variables to look at with a significant p-value
+```
+
+```{r}
+autoplot(jc_goals_model)[1:2]
+#not the best but might be good enough
+```
+
+```{r}
+#not ideal but not horrible
+autoplot(jc_goals_model_2)[1:2]
 ```
