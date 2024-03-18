@@ -206,6 +206,7 @@ ggplot(data = soccer) +
   xlab("Chances Created") +
   ylab("Formation") + 
   theme_bw()
+#cannot look into too much because of quality of tea, but median again is similar
 ```
 
 ```{r}
@@ -215,6 +216,7 @@ ggplot(data = soccer) +
   xlab("Goals Scored") +
   ylab("Formation") + 
   theme_bw()
+#First time with completely different median
 ```
 
 ```{r}
@@ -224,6 +226,7 @@ ggplot(data = soccer) +
   xlab("Goals Scored") +
   ylab("Formation") + 
   theme_bw()
+#same median, different IQR and spread
 ```
 
 ```{r}
@@ -233,6 +236,8 @@ ggplot(data = soccer) +
   xlab("Total Wide Attacks") +
   ylab("Formation") + 
   theme_bw()
+
+#different median could be interesting to look into
 ```
 
 ```{r}
@@ -242,6 +247,8 @@ ggplot(data = soccer) +
   xlab("Defensive Wide Attack Success Rate") +
   ylab("Formation") + 
   theme_bw()
+
+#wide attacks seem to differ between the formations
 ```
 
 ```{r}
@@ -251,6 +258,8 @@ ggplot(data = soccer) +
   xlab("First Balls Won Percentage") +
   ylab("Formation") + 
   theme_bw()
+
+#first balls are quite similar but 352 has a smaller spread
 ```
 
 ```{r}
@@ -345,6 +354,7 @@ ggplot(soccer, aes(x = defensive_wide_attacks_percentage, y = defensive_wide_att
 
 ```{r}
 soccer <- mutate(soccer, corner_kicks_percentage = ifelse(corner_kicks_percentage == "#DIV/0!", NA, corner_kicks_percentage))
+
 ```
 
 ```{r}
