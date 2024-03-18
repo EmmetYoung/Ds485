@@ -5,6 +5,8 @@ format: pdf
 editor: visual
 ---
 
+# Importing and Cleaning
+
 ```{r}
 library(tidyverse)
 library(ggplot2)
@@ -46,12 +48,16 @@ drop_na()
 head(soccer)
 ```
 
+# EDA Begins
+
 ```{r}
 ggplot(soccer, aes(x = attacking_clear_cuts , y = jc_goals)) + 
   geom_point() +
     xlab("Chances") +
   ylab("JC Goals") + 
   theme_bw()
+
+#not really enough data to see anyhting, but there is a positive trend which makes sense
 ```
 
 ```{r}
@@ -61,9 +67,11 @@ cor(soccer$attacking_clear_cuts, soccer$jc_goals)
 ```{r}
 ggplot(soccer, aes(x = opponent_clear_cuts , y = opponent_goals)) + 
   geom_point() +
-    xlab("Chances") +
+    xlab("Opponents Chances") +
   ylab("Opponent Goals") + 
   theme_bw()
+#not really enough data to see anyhting, but there is a positive trend which makes sense
+
 ```
 
 ```{r}
@@ -76,6 +84,8 @@ ggplot(soccer, aes(x = opponent_clear_cuts , y = opponent_goals, size = massey_r
     xlab("Chances") +
   ylab("Opponent Goals") + 
   theme_bw()
+
+#smaller number means the team is better. We gave up more chances and goals to the better teams
 ```
 
 ```{r}
@@ -84,6 +94,8 @@ ggplot(soccer, aes(x = opponent_clear_cuts , y = opponent_goals, shape = formati
     xlab("Chances") +
   ylab("Opponent Goals") + 
   theme_bw()
+
+#Circle is the 352 and the triangle is 4231, we do not see much from this, especially without incorporating massey ranking because we played better teams while in a 352
 ```
 
 ```{r}
@@ -92,6 +104,8 @@ ggplot(soccer, aes(x = attacking_clear_cuts , y = jc_goals, shape = formation)) 
     xlab("Chances") +
   ylab("JC Goals") + 
   theme_bw()
+
+#Circle is the 352 and the triangle is 4231, we do not see much from this, especially without incorporating massey ranking because we played better teams while in a 352
 ```
 
 ```{r}
@@ -100,6 +114,8 @@ ggplot(soccer, aes(x = first_ball_percentage, y = second_ball_percentage)) +
     xlab("First Ball Won Percentage") +
   ylab("Second Ball Won Percentage") + 
   theme_bw()
+
+#minimal correlation between the amount of first balls and second balls won
 ```
 
 ```{r}
@@ -122,12 +138,14 @@ ggplot(data = soccer) +
 ggplot(data = soccer) + 
   geom_histogram(mapping = aes(x = opponent_goals, fill = formation)) + 
   theme_bw() 
+#hard to interpret without massey ranking but just shows the distribution better
 ```
 
 ```{r}
 ggplot(data = soccer) + 
   geom_histogram(mapping = aes(x = jc_goals, fill = formation)) + 
   theme_bw() 
+#hard to interpret without massey ranking but just shows the distribution better. Got shutout way too much
 ```
 
 ```{r}
@@ -136,6 +154,8 @@ ggplot(soccer, aes(x = wide_attacks_total, y = attacking_clear_cuts)) +
     xlab("Wide Attacks") +
   ylab("CLear Cuts") + 
   theme_bw()
+
+#looks like wide attacks correlate with clear cuts, which again makes sense
 ```
 
 ```{r}
@@ -160,6 +180,8 @@ ggplot(soccer, aes(x = wide_attacks_percentage, y = attacking_clear_cuts)) +
     xlab("Wide Attacks") +
   ylab("Clear Cuts") + 
   theme_bw()
+
+#wide attacks percent is the least correlated with the clear cuts because if you ahve a bunch of wide attacks, you do not need to be as efficient.
 ```
 
 ```{r}
@@ -173,6 +195,8 @@ ggplot(data = soccer) +
   xlab("Chances Given Up") +
   ylab("Formation") + 
   theme_bw()
+
+#very similar median, but spead and q1 and q3 are quite different. IQR is similar size though
 ```
 
 ```{r}
