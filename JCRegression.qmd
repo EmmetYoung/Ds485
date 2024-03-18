@@ -296,3 +296,11 @@ soccer_logistic_reg2 <- glm(formation ~ attacking_clear_cuts + opponent_backline
 
 summary(soccer_logistic_reg2)
 ```
+
+```{r}
+soccer_logistic_reg3 <- glm(formation ~ massey_ranking + attacking_clear_cuts + attacking_clear_cuts * massey_ranking, data = soccer_logistic, family = binomial())
+
+summary(soccer_logistic_reg3)
+
+#this was the best model I could find with linear regression, and I could not find significance, which makes sense because the medians were very similar when comparing the formations.
+```
