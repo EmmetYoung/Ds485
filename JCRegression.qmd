@@ -156,7 +156,7 @@ summary(jc_chances_model2)
 #without opponent characteristics besides massey ranking
 jc_chances_model3 <- lm(attacking_clear_cuts ~ defensive_wide_attacks_total+ backline_to_frontline  + free_kicks_successful + won_off_backline + jc_shots + massey_ranking, data = soccer)
 
-summary(jc_chances_model3)
+summary(jc_chances_model3) 
 ```
 
 # Predicting Win Loss
