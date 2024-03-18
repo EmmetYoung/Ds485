@@ -237,6 +237,28 @@ summary(soccer_logistic_reg)
 #few varaibles are even close to significant.
 ```
 
+```{r}
+ggplot(soccer_logistic, aes(x = massey_ranking, y = opponent_goals, color = result)) + 
+  geom_point() +
+    xlab("Massey Ranking") +
+  ylab("Opponent Goals") + 
+  theme_bw()
+
+#Massey ranking should be a useful predictor
+```
+
+```{r}
+head(soccer)
+```
+
+```{r}
+soccer_logistic_reg <- glm(result ~  massey_ranking, data = soccer_logistic, family = binomial())
+
+summary(soccer_logistic_reg)
+
+#why is massey ranking not a useful predictor?
+```
+
 # Predicting Formation
 
 ```{r}
