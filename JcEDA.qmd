@@ -363,6 +363,10 @@ soccer <- soccer%>%
 ```
 
 ```{r}
+view(soccer)
+```
+
+```{r}
 # only using the athletes (heat map)
 soccer_map <- soccer %>%   select(c(2:36)) #all the numeric variables 
 
