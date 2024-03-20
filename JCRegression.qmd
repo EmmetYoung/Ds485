@@ -27,6 +27,7 @@ library(caret)
 library(rattle)
 library(ggfortify)
 library(glmnet)
+
 ```
 
 # Cleaning and Importing
@@ -252,11 +253,65 @@ head(soccer)
 ```
 
 ```{r}
-soccer_logistic_reg <- glm(result ~  massey_ranking, data = soccer_logistic, family = binomial())
+soccer_logistic_reg <- glm(result ~  massey_ranking, data = soccer_logistic, 
+                           family = binomial())
 
 summary(soccer_logistic_reg)
 
 #why is massey ranking not a useful predictor?
+
+```
+
+```{r}
+preds <- predict(soccer_logistic_reg, soccer_logistic, type = "response")
+```
+
+```{r}
+tibble(massey_ranking = soccer_logistic$massey_ranking,
+  prob = preds,
+  type = as.numeric(prob>= 0.50)) %>%
+  ggplot()+ geom_point(aes(massey_ranking, type)) + geom_line(aes(massey_ranking, preds), color = "deeppink")+ theme_bw()
+```
+
+```{r}
+soccer_logistic1 <- soccer_logistic[ -c(25) ]
+head(soccer_logistic1)
+```
+
+```{r}
+set.seed(1)
+split <- initial_split(soccer_logistic1, prop = 0.8)
+
+train_data <- training(split)
+test_data <- testing(split)
+
+```
+
+```{r}
+#| warning: false
+#| message: false
+rank_model1 <- train(train_data[, -1, -36, -37],
+                    train_data$result,
+                    method = "rf",
+                    trControl = trainControl(method="cv"))
+```
+
+```{r}
+varImp(rank_model1$finalModel)
+```
+
+```{r}
+#| warning: false
+#| message: false
+rank_model <- train(train_data[, -1, -36, -37],
+                    train_data$result,
+                    method = "rpart",
+                    trControl = trainControl(method="cv"))
+```
+
+```{r}
+
+fancyRpartPlot(rank_model$finalModel)
 ```
 
 # Predicting Formation
