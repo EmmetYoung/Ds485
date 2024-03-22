@@ -304,21 +304,22 @@ rank_model1 <- train(train_data[, -1, -36, -37],
 ```
 
 ```{r}
-varImp(rank_model1$finalModel)
+varImp(rank_model1$finalModel) 
+
 ```
 
 ```{r}
 #| warning: false
 #| message: false
-rank_model <- train(train_data[, -1, -36, -37],
-                    train_data$result,
+rank_model <- train(soccer_logistic[, -c(1, 36,37)],
+                    soccer_logistic$result,
                     method = "rpart",
                     trControl = trainControl(method="cv"))
 ```
 
 ```{r}
 
-fancyRpartPlot(rank_model$finalModel)
+fancyRpartPlot(rank_model$finalModel) 
 ```
 
 ```{r}
