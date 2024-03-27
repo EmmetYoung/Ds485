@@ -10,7 +10,6 @@ library(tidyverse)
 library(ggplot2)
 library(dplyr)
 library(janitor)
-install.packages("reshape2")
 library(reshape2)
 library(plotly)
 library(magrittr)
@@ -110,7 +109,7 @@ autoplot(jc_goals_model_2)[1:2]
 
 ```{r}
 #using no opponent statistics besides massey
-jc_goals_model3 <- lm(jc_goals ~ wide_attacks_total +  free_kicks_successful + box_touches + attacking_clear_cuts +  won_off_backline + jc_shots + opponent_shots  + massey_ranking + second_ball_won + backline_to_frontline , data = soccer)
+jc_goals_model3 <- lm(jc_goals ~ wide_attacks_total +  free_kicks_successful + box_touches + attacking_clear_cuts +  won_off_backline + jc_shots  + massey_ranking + second_ball_won + backline_to_frontline , data = soccer)
 
 summary(jc_goals_model3)
 ```
@@ -297,7 +296,7 @@ test_data <- testing(split)
 ```{r}
 #| warning: false
 #| message: false
-rank_model1 <- train(train_data[, -1, -36, -37],
+rank_model1 <- train(train_data[, -c(1, 36, 37)],
                     train_data$result,
                     method = "rf",
                     trControl = trainControl(method="cv"))
