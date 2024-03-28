@@ -12,7 +12,7 @@ library(tidyverse)
 library(ggplot2)
 library(dplyr)
 library(janitor)
-install.packages("reshape2")
+
 library(reshape2)
 library(plotly)
 library(magrittr)
@@ -144,6 +144,8 @@ ggplot(data = soccer) +
 ```{r}
 ggplot(data = soccer) + 
   geom_histogram(mapping = aes(x = jc_goals, fill = formation)) + 
+   xlab("Juniata Goals") +
+  ylab("Count") + 
   theme_bw() 
 #hard to interpret without massey ranking but just shows the distribution better. Got shutout way too much
 ```
@@ -223,7 +225,7 @@ ggplot(data = soccer) +
 ggplot(data = soccer) + 
   geom_boxplot(mapping = aes(x = opponent_goals, y = formation)) +
   scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
-  xlab("Goals Scored") +
+  xlab("Goals Given Up") +
   ylab("Formation") + 
   theme_bw()
 #same median, different IQR and spread
@@ -353,6 +355,14 @@ ggplot(soccer, aes(x = defensive_wide_attacks_percentage, y = defensive_wide_att
 ```
 
 ```{r}
+ggplot(soccer, aes(x = massey_ranking, y = opponent_goals, color = result)) + 
+  geom_point() +
+    xlab("Massey Ranking") +
+  ylab("Opponent Goals") + 
+  theme_bw()
+```
+
+```{r}
 soccer <- mutate(soccer, corner_kicks_percentage = ifelse(corner_kicks_percentage == "#DIV/0!", NA, corner_kicks_percentage))
 
 ```
@@ -368,7 +378,7 @@ view(soccer)
 
 ```{r}
 # only using the athletes (heat map)
-soccer_map <- soccer %>%   select(c(2:36)) #all the numeric variables 
+soccer_map <- soccer %>%   select(c(2:24, 26:36)) #all the numeric variables 
 
 selectedcorr_mat <- round(cor(soccer_map),2)  
 
@@ -384,8 +394,8 @@ ggplot(data = melted_corr_mat,  aes(x=Var1, y=Var2, fill=value)) +   geom_tile()
 geom_text(aes(Var2, Var1, label = value), color = "black", size = 1)+
   #theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 5)) +
 #theme(axis.text.y = element_text(angle = 0, hjust = 1, size = 4)) +
-  scale_y_discrete(label= c(jc_goals = "Juniata Goals", opponent_goals = "Opponent Goals", jc_shots="Juniata Shots", opponent_shots = "Opponent Shots", massey_ranking = "Massey Ranking", won_off_backline="Won Off Backline", opponent_backline_to_frontline = "Opponent Transition", opponent_clear_cuts = "Opponent Clear Cut Chances", backline_to_frontline="Juniata Transition", attacking_clear_cuts = "Juniata Clear Cut Chances", box_touches = "Box Touches", corner_kicks_percentage="Corner Kick Percentage", corner_kicks_total="Total Corner Kicks", corner_kicks_unsuccessful="Unsuccessful Corner Kicks", corner_kicks_successful="Successful Corner Kicks", free_kicks_percentage = "Free Kick Percentage", free_kicks_total = "Total Free Kicks", free_kicks_unsuccessful = "Unsuccessful Free Kicks", free_kicks_successful = "Successful Free Kicks", defensive_wide_attacks_percentage = "Defensive Wide Attacks Percentage", defensive_wide_attacks_total = "Total Defensive Wide Area", defensive_wide_attacks_lost = "Defensive Wide Area Lost", defensive_wide_attacks_won = "Defensive Wide Attacks Won", wide_attacks_percentage = "Wide Attack Percentage", wide_attacks_total = "Total Wide Attacks", wide_attacks_lost = "Wide Attacks Lost", wide_attacks_won = "Wide Attacks Won", second_ball_percentage = "Second Ball Percentage", second_ball_total = "Total Second Balls", second_ball_lost = "Second Balls Lost", second_ball_won = "Second Balls Won", first_ball_percentage = "First Ball Percentage", first_ball_total = "Total First Balls", first_ball_lost = "First Balls Lost", first_ball_won = "First Balls Won")) +
-  scale_x_discrete(label= c(jc_goals = "Juniata Goals", opponent_goals = "Opponent Goals", jc_shots="Juniata Shots", opponent_shots = "Opponent Shots", massey_ranking = "Massey Ranking", won_off_backline="Won Off Backline", opponent_backline_to_frontline = "Opponent Transition", opponent_clear_cuts = "Opponent Clear Cut Chances", backline_to_frontline="Juniata Transition", attacking_clear_cuts = "Juniata Clear Cut Chances", box_touches = "Box Touches", corner_kicks_percentage="Corner Kick Percentage", corner_kicks_total="Total Corner Kicks", corner_kicks_unsuccessful="Unsuccessful Corner Kicks", corner_kicks_successful="Successful Corner Kicks", free_kicks_percentage = "Free Kick Percentage", free_kicks_total = "Total Free Kicks", free_kicks_unsuccessful = "Unsuccessful Free Kicks", free_kicks_successful = "Successful Free Kicks", defensive_wide_attacks_percentage = "Defensive Wide Attacks Percentage", defensive_wide_attacks_total = "Total Defensive Wide Area", defensive_wide_attacks_lost = "Defensive Wide Area Lost", defensive_wide_attacks_won = "Defensive Wide Attacks Won", wide_attacks_percentage = "Wide Attack Percentage", wide_attacks_total = "Total Wide Attacks", wide_attacks_lost = "Wide Attacks Lost", wide_attacks_won = "Wide Attacks Won", second_ball_percentage = "Second Ball Percentage", second_ball_total = "Total Second Balls", second_ball_lost = "Second Balls Lost", second_ball_won = "Second Balls Won", first_ball_percentage = "First Ball Percentage", first_ball_total = "Total First Balls", first_ball_lost = "First Balls Lost", first_ball_won = "First Balls Won"))+  labs(x=NULL,y=NULL,fill=stringr::str_wrap("Correlation Coefficient",width=12))+  theme_bw() +  #theme( axis.text.x  = element_text(angle=90)) +
+  scale_y_discrete(label= c(jc_goals = "Juniata Goals", opponent_goals = "Opponent Goals", jc_shots="Juniata Shots", opponent_shots = "Opponent Shots", massey_ranking = "Massey Ranking", won_off_backline="Won Off Backline", opponent_backline_to_frontline = "Opponent Transition", opponent_clear_cuts = "Opponent Clear Cut Chances", backline_to_frontline="Juniata Transition", attacking_clear_cuts = "Juniata Clear Cut Chances", box_touches = "Box Touches", corner_kicks_total="Total Corner Kicks", corner_kicks_unsuccessful="Unsuccessful Corner Kicks", corner_kicks_successful="Successful Corner Kicks", free_kicks_percentage = "Free Kick Percentage", free_kicks_total = "Total Free Kicks", free_kicks_unsuccessful = "Unsuccessful Free Kicks", free_kicks_successful = "Successful Free Kicks", defensive_wide_attacks_percentage = "Defensive Wide Attacks Percentage", defensive_wide_attacks_total = "Total Defensive Wide Area", defensive_wide_attacks_lost = "Defensive Wide Area Lost", defensive_wide_attacks_won = "Defensive Wide Attacks Won", wide_attacks_percentage = "Wide Attack Percentage", wide_attacks_total = "Total Wide Attacks", wide_attacks_lost = "Wide Attacks Lost", wide_attacks_won = "Wide Attacks Won", second_ball_percentage = "Second Ball Percentage", second_ball_total = "Total Second Balls", second_ball_lost = "Second Balls Lost", second_ball_won = "Second Balls Won", first_ball_percentage = "First Ball Percentage", first_ball_total = "Total First Balls", first_ball_lost = "First Balls Lost", first_ball_won = "First Balls Won")) +
+  scale_x_discrete(label= c(jc_goals = "Juniata Goals", opponent_goals = "Opponent Goals", jc_shots="Juniata Shots", opponent_shots = "Opponent Shots", massey_ranking = "Massey Ranking", won_off_backline="Won Off Backline", opponent_backline_to_frontline = "Opponent Transition", opponent_clear_cuts = "Opponent Clear Cut Chances", backline_to_frontline="Juniata Transition", attacking_clear_cuts = "Juniata Clear Cut Chances", box_touches = "Box Touches", corner_kicks_total="Total Corner Kicks", corner_kicks_unsuccessful="Unsuccessful Corner Kicks", corner_kicks_successful="Successful Corner Kicks", free_kicks_percentage = "Free Kick Percentage", free_kicks_total = "Total Free Kicks", free_kicks_unsuccessful = "Unsuccessful Free Kicks", free_kicks_successful = "Successful Free Kicks", defensive_wide_attacks_percentage = "Defensive Wide Attacks Percentage", defensive_wide_attacks_total = "Total Defensive Wide Area", defensive_wide_attacks_lost = "Defensive Wide Area Lost", defensive_wide_attacks_won = "Defensive Wide Attacks Won", wide_attacks_percentage = "Wide Attack Percentage", wide_attacks_total = "Total Wide Attacks", wide_attacks_lost = "Wide Attacks Lost", wide_attacks_won = "Wide Attacks Won", second_ball_percentage = "Second Ball Percentage", second_ball_total = "Total Second Balls", second_ball_lost = "Second Balls Lost", second_ball_won = "Second Balls Won", first_ball_percentage = "First Ball Percentage", first_ball_total = "Total First Balls", first_ball_lost = "First Balls Lost", first_ball_won = "First Balls Won"))+  labs(x=NULL,y=NULL,fill=stringr::str_wrap("Correlation Coefficient",width=12))+  theme_bw() +  #theme( axis.text.x  = element_text(angle=90)) +
   theme(axis.text = element_text(size = 5),  # Set the size for both x and y axes
         axis.text.x = element_text(angle = 90))
 ```
