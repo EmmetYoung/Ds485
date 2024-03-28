@@ -160,9 +160,24 @@ summary(jc_chances_model2)
 
 ```{r}
 #without opponent characteristics besides massey ranking
-jc_chances_model3 <- lm(attacking_clear_cuts ~ defensive_wide_attacks_total+ backline_to_frontline  + free_kicks_successful + won_off_backline + jc_shots + massey_ranking, data = soccer)
+jc_chances_model3 <- lm(attacking_clear_cuts ~  backline_to_frontline  + free_kicks_successful + won_off_backline + jc_shots + massey_ranking + wide_attacks_total, data = soccer)
 
 summary(jc_chances_model3) 
+```
+
+```{r}
+chances_best2 <- ols_step_best_subset(jc_chances_model3)
+chances_best2
+```
+
+```{r}
+plot(chances_best2)
+```
+
+```{r}
+jc_chances_model4 <- lm(attacking_clear_cuts ~   free_kicks_successful + jc_shots + massey_ranking, data = soccer)
+
+summary(jc_chances_model4)
 ```
 
 # Predicting Win Loss
