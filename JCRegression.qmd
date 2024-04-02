@@ -259,7 +259,7 @@ summary(soccer_logistic_reg)
 ```
 
 ```{r}
-ggplot(soccer_logistic, aes(x = massey_ranking, y = opponent_goals, color = result)) + 
+ggplot(soccer_logistic, aes(x = massey_ranking, y = opponent_goals, color= result)) + 
   geom_point() +
     xlab("Massey Ranking") +
   ylab("Opponent Goals") + 
@@ -291,7 +291,8 @@ preds <- predict(soccer_logistic_reg, soccer_logistic, type = "response")
 tibble(massey_ranking = soccer_logistic$massey_ranking,
   prob = preds,
   type = as.numeric(prob>= 0.50)) %>%
-  ggplot()+ geom_point(aes(massey_ranking, type)) + geom_line(aes(massey_ranking, preds), color = "deeppink")+ theme_bw()
+  ggplot()+ geom_point(aes(massey_ranking, type)) + geom_line(aes(massey_ranking, preds), color = "deeppink")+ xlab("Massey Ranking") + ylab("Probability of a Win") +
+ theme_bw()
 ```
 
 ```{r}
@@ -361,9 +362,16 @@ grid$qda <- predict(soccer_qda, grid)$class
 ```
 
 ```{r}
+soccer_logistic <- soccer_logistic%>% 
+  mutate(result = as.factor(result))
+```
+
+```{r}
 ggplot(soccer_logistic) + geom_point(aes(opponent_clear_cuts,attacking_clear_cuts, color = result)) + 
     geom_raster(data = grid, aes(opponent_clear_cuts, attacking_clear_cuts, fill = qda), alpha = 0.3) + 
-    labs(x = "Opponent Clear Cuts", y = "Attacking Clear Cuts", title = "Opponent Chances vs Juniata Chances") +
+    labs(x = "Opponent Clear Cuts", y = "Attacking Clear Cuts", fill = "Predicted Result", color = "Actual Result") +
+    scale_fill_discrete(labels=c("Loss", "Win")) +
+    scale_color_discrete(labels=c("Loss", "Win")) +
   theme_bw()
 ```
 
