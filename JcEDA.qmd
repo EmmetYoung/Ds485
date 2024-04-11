@@ -137,7 +137,11 @@ ggplot(data = soccer) +
 ```{r}
 ggplot(data = soccer) + 
   geom_histogram(mapping = aes(x = opponent_goals, fill = formation)) + 
-  theme_bw() 
+  theme_bw() +
+    xlab("Opponent Goals") +
+  ylab("Number of Games") + 
+   scale_fill_discrete(labels= c("3-5-2", "4-2-3-1")) +
+  theme_bw()
 #hard to interpret without massey ranking but just shows the distribution better
 ```
 
@@ -146,6 +150,7 @@ ggplot(data = soccer) +
   geom_histogram(mapping = aes(x = jc_goals, fill = formation)) + 
    xlab("Juniata Goals") +
   ylab("Count") + 
+  
   theme_bw() 
 #hard to interpret without massey ranking but just shows the distribution better. Got shutout way too much
 ```
@@ -194,7 +199,7 @@ cor(soccer$wide_attacks_percentage, soccer$attacking_clear_cuts)
 ggplot(data = soccer) + 
   geom_boxplot(mapping = aes(x = opponent_clear_cuts, y = formation)) +
   scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
-  xlab("Chances Given Up") +
+  xlab("Opponent Clear Cuts") +
   ylab("Formation") + 
   theme_bw()
 
@@ -394,8 +399,8 @@ ggplot(data = melted_corr_mat,  aes(x=Var1, y=Var2, fill=value)) +   geom_tile()
 geom_text(aes(Var2, Var1, label = value), color = "black", size = 1)+
   #theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 5)) +
 #theme(axis.text.y = element_text(angle = 0, hjust = 1, size = 4)) +
-  scale_y_discrete(label= c(jc_goals = "Juniata Goals", opponent_goals = "Opponent Goals", jc_shots="Juniata Shots", opponent_shots = "Opponent Shots", massey_ranking = "Massey Ranking", won_off_backline="Won Off Backline", opponent_backline_to_frontline = "Opponent Transition", opponent_clear_cuts = "Opponent Clear Cut Chances", backline_to_frontline="Juniata Transition", attacking_clear_cuts = "Juniata Clear Cut Chances", box_touches = "Box Touches", corner_kicks_total="Total Corner Kicks", corner_kicks_unsuccessful="Unsuccessful Corner Kicks", corner_kicks_successful="Successful Corner Kicks", free_kicks_percentage = "Free Kick Percentage", free_kicks_total = "Total Free Kicks", free_kicks_unsuccessful = "Unsuccessful Free Kicks", free_kicks_successful = "Successful Free Kicks", defensive_wide_attacks_percentage = "Defensive Wide Attacks Percentage", defensive_wide_attacks_total = "Total Defensive Wide Area", defensive_wide_attacks_lost = "Defensive Wide Area Lost", defensive_wide_attacks_won = "Defensive Wide Attacks Won", wide_attacks_percentage = "Wide Attack Percentage", wide_attacks_total = "Total Wide Attacks", wide_attacks_lost = "Wide Attacks Lost", wide_attacks_won = "Wide Attacks Won", second_ball_percentage = "Second Ball Percentage", second_ball_total = "Total Second Balls", second_ball_lost = "Second Balls Lost", second_ball_won = "Second Balls Won", first_ball_percentage = "First Ball Percentage", first_ball_total = "Total First Balls", first_ball_lost = "First Balls Lost", first_ball_won = "First Balls Won")) +
-  scale_x_discrete(label= c(jc_goals = "Juniata Goals", opponent_goals = "Opponent Goals", jc_shots="Juniata Shots", opponent_shots = "Opponent Shots", massey_ranking = "Massey Ranking", won_off_backline="Won Off Backline", opponent_backline_to_frontline = "Opponent Transition", opponent_clear_cuts = "Opponent Clear Cut Chances", backline_to_frontline="Juniata Transition", attacking_clear_cuts = "Juniata Clear Cut Chances", box_touches = "Box Touches", corner_kicks_total="Total Corner Kicks", corner_kicks_unsuccessful="Unsuccessful Corner Kicks", corner_kicks_successful="Successful Corner Kicks", free_kicks_percentage = "Free Kick Percentage", free_kicks_total = "Total Free Kicks", free_kicks_unsuccessful = "Unsuccessful Free Kicks", free_kicks_successful = "Successful Free Kicks", defensive_wide_attacks_percentage = "Defensive Wide Attacks Percentage", defensive_wide_attacks_total = "Total Defensive Wide Area", defensive_wide_attacks_lost = "Defensive Wide Area Lost", defensive_wide_attacks_won = "Defensive Wide Attacks Won", wide_attacks_percentage = "Wide Attack Percentage", wide_attacks_total = "Total Wide Attacks", wide_attacks_lost = "Wide Attacks Lost", wide_attacks_won = "Wide Attacks Won", second_ball_percentage = "Second Ball Percentage", second_ball_total = "Total Second Balls", second_ball_lost = "Second Balls Lost", second_ball_won = "Second Balls Won", first_ball_percentage = "First Ball Percentage", first_ball_total = "Total First Balls", first_ball_lost = "First Balls Lost", first_ball_won = "First Balls Won"))+  labs(x=NULL,y=NULL,fill=stringr::str_wrap("Correlation Coefficient",width=12))+  theme_bw() +  #theme( axis.text.x  = element_text(angle=90)) +
+  scale_y_discrete(label= c(jc_goals = "Juniata Goals", opponent_goals = "Opponent Goals", jc_shots="Juniata Shots", opponent_shots = "Opponent Shots", massey_ranking = "Massey Ranking", won_off_backline="Won Off Backline", opponent_backline_to_frontline = "Opponent Transition", opponent_clear_cuts = "Opponent Clear Cut Chances", backline_to_frontline="Juniata Transition", attacking_clear_cuts = "Attacking Clear Cut Chances", box_touches = "Box Touches", corner_kicks_total="Total Corner Kicks", corner_kicks_unsuccessful="Unsuccessful Corner Kicks", corner_kicks_successful="Successful Corner Kicks", free_kicks_percentage = "Free Kick Percentage", free_kicks_total = "Total Free Kicks", free_kicks_unsuccessful = "Unsuccessful Free Kicks", free_kicks_successful = "Successful Free Kicks", defensive_wide_attacks_percentage = "Defensive Wide Attacks Percentage", defensive_wide_attacks_total = "Total Defensive Wide Area", defensive_wide_attacks_lost = "Defensive Wide Area Lost", defensive_wide_attacks_won = "Defensive Wide Attacks Won", wide_attacks_percentage = "Wide Attack Percentage", wide_attacks_total = "Total Wide Attacks", wide_attacks_lost = "Wide Attacks Lost", wide_attacks_won = "Wide Attacks Won", second_ball_percentage = "Second Ball Percentage", second_ball_total = "Total Second Balls", second_ball_lost = "Second Balls Lost", second_ball_won = "Second Balls Won", first_ball_percentage = "First Ball Percentage", first_ball_total = "Total First Balls", first_ball_lost = "First Balls Lost", first_ball_won = "First Balls Won")) +
+  scale_x_discrete(label= c(jc_goals = "Juniata Goals", opponent_goals = "Opponent Goals", jc_shots="Juniata Shots", opponent_shots = "Opponent Shots", massey_ranking = "Massey Ranking", won_off_backline="Won Off Backline", opponent_backline_to_frontline = "Opponent Transition", opponent_clear_cuts = "Opponent Clear Cut Chances", backline_to_frontline="Juniata Transition", attacking_clear_cuts = "Attacking Clear Cut Chances", box_touches = "Box Touches", corner_kicks_total="Total Corner Kicks", corner_kicks_unsuccessful="Unsuccessful Corner Kicks", corner_kicks_successful="Successful Corner Kicks", free_kicks_percentage = "Free Kick Percentage", free_kicks_total = "Total Free Kicks", free_kicks_unsuccessful = "Unsuccessful Free Kicks", free_kicks_successful = "Successful Free Kicks", defensive_wide_attacks_percentage = "Defensive Wide Attacks Percentage", defensive_wide_attacks_total = "Total Defensive Wide Area", defensive_wide_attacks_lost = "Defensive Wide Area Lost", defensive_wide_attacks_won = "Defensive Wide Attacks Won", wide_attacks_percentage = "Wide Attack Percentage", wide_attacks_total = "Total Wide Attacks", wide_attacks_lost = "Wide Attacks Lost", wide_attacks_won = "Wide Attacks Won", second_ball_percentage = "Second Ball Percentage", second_ball_total = "Total Second Balls", second_ball_lost = "Second Balls Lost", second_ball_won = "Second Balls Won", first_ball_percentage = "First Ball Percentage", first_ball_total = "Total First Balls", first_ball_lost = "First Balls Lost", first_ball_won = "First Balls Won"))+  labs(x=NULL,y=NULL,fill=stringr::str_wrap("Correlation Coefficient",width=12))+  theme_bw() +  #theme( axis.text.x  = element_text(angle=90)) +
   theme(axis.text = element_text(size = 5),  # Set the size for both x and y axes
         axis.text.x = element_text(angle = 90))
 ```
@@ -406,4 +411,8 @@ ggplot(soccer, aes(x = attacking_clear_cuts, y = opponent_clear_cuts, color = re
     xlab("Wide Attacks") +
   ylab("Wide Attacks Won") + 
   theme_bw()
+```
+
+```{r}
+
 ```
