@@ -369,7 +369,7 @@ soccer_logistic <- soccer_logistic%>%
 ```{r}
 ggplot(soccer_logistic) + geom_point(aes(opponent_clear_cuts,attacking_clear_cuts, color = result)) + 
     geom_raster(data = grid, aes(opponent_clear_cuts, attacking_clear_cuts, fill = qda), alpha = 0.3) + 
-    labs(x = "Opponent Clear Cuts", y = "Attacking Clear Cuts", fill = "Predicted Result", color = "Actual Result") +
+    labs(x = "Opponent Clear Cuts Chances", y = "Attacking Clear Cut Chances", fill = "Predicted Result", color = "Actual Result") +
     scale_fill_discrete(labels=c("Loss", "Win")) +
     scale_color_discrete(labels=c("Loss", "Win")) +
   theme_bw()
