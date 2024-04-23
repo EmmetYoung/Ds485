@@ -149,7 +149,8 @@ ggplot(data = soccer) +
 ggplot(data = soccer) + 
   geom_histogram(mapping = aes(x = jc_goals, fill = formation)) + 
    xlab("Juniata Goals") +
-  ylab("Count") + 
+  ylab("Number of Games") + 
+    scale_fill_discrete(labels= c("3-5-2", "4-2-3-1")) +
   
   theme_bw() 
 #hard to interpret without massey ranking but just shows the distribution better. Got shutout way too much
@@ -199,7 +200,7 @@ cor(soccer$wide_attacks_percentage, soccer$attacking_clear_cuts)
 ggplot(data = soccer) + 
   geom_boxplot(mapping = aes(x = opponent_clear_cuts, y = formation)) +
   scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
-  xlab("Opponent Clear Cuts") +
+  xlab("Opponent Clear Cut Chances") +
   ylab("Formation") + 
   theme_bw()
 
@@ -210,7 +211,7 @@ ggplot(data = soccer) +
 ggplot(data = soccer) + 
   geom_boxplot(mapping = aes(x = attacking_clear_cuts, y = formation)) +
   scale_y_discrete(labels= c("3-5-2", "4-2-3-1")) +
-  xlab("Chances Created") +
+  xlab("Attacking Clear Cut Chances") +
   ylab("Formation") + 
   theme_bw()
 #cannot look into too much because of quality of tea, but median again is similar
@@ -338,8 +339,10 @@ ggplot(soccer, aes(x = opponent_clear_cuts , y = opponent_goals, color = result)
 ```{r}
 ggplot(soccer, aes(x = attacking_clear_cuts , y = jc_goals, color = result)) + 
   geom_point() +
-    xlab("JC Chances") +
-  ylab("JC Goals") + 
+    xlab("Attacking Clear Cut Chances") +
+  ylab("Juniata Goals") + 
+  labs(color='Result') +
+  
   theme_bw()
 ```
 
@@ -364,6 +367,7 @@ ggplot(soccer, aes(x = massey_ranking, y = opponent_goals, color = result)) +
   geom_point() +
     xlab("Massey Ranking") +
   ylab("Opponent Goals") + 
+  labs(color='Result') +
   theme_bw()
 ```
 
